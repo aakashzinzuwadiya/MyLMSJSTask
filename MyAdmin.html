@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="icon" href="./IMAGES/MyLMSLogo.png">
+  	<link rel="stylesheet" href="./CSS/style.css">
+  	<script type="text/javascript" src="./JS/MyLms.js"></script>
+  	<script type="text/javascript" src="./JS/User.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	  	    $("#userModal").style.visibility = "hidden";
+	  	  });
+	</script>
+	<script type="text/javascript">
+	  	$(document).ready(function(){
+	  	  $("#userBtn").click(function(){
+	  	    showData();
+	  	    $("#userModal").style.visibility = "visible";
+	  	  });
+	  	});
+	  	// document.getElementById("userModal").style.visibility = "hidden";
+	</script>
+	<script>
+	  	$(document).ready(function(){
+	  	  $("#AddUserBtn").click(function(){
+	  	    $("#AddUserModal").modal();
+	  	  });
+	  	});
+  	</script>
+	<script>
+	  	$(document).ready(function(){
+	  	  $("#RemoveUserBtn").click(function(){
+	  	  	removeUser();
+	  	    $("#RemoveUserModal").modal();
+	  	  });
+	  	});
+  	</script>
+</head>
+<body>
+	<!-- This is the Header Part With Navigation Menu -->
+	<div style="border:1px solid;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="LogoD" style="margin-left:20px;">	 
+					<img src="./IMAGES/MyLMSLogo.png" height="80">
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" style="margin-top: 20px;">
+					<marquee direction="left" scrollamount="13" behavior="alternate"><h2 style="color: #f97706; font-weight: 600; ">Welcome to MyLMS Keep Learning</h2>
+					</marquee>
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12" style="margin-top:20px;">
+					<h3 id="myUser" style="color:#f97706;">Welcome,<br></h3>
+					<script type="text/javascript">console.log("Welcome:"+sessionStorage.getItem("	UserNameSsn"));
+					document.getElementById("myUser").innerHTML+=sessionStorage.getItem("UserNameSsn");
+					</script>
+				</div>	 
+			</div>
+		</div>	
+	</div>
+
+	<!-- This Div for Dashboard -->
+	<div class="container-fluid">
+		<div class="row" id="Dashboard">
+			<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="DashboardMenu">
+				<div class="row" style="margin-top: 50px; margin-left: 30px;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<button type="button" class="btn btn-primary" id="userBtn" 
+						onclick="showData()">Users</button>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 50px; margin-left: 30px;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<button type="button" class="btn btn-primary" onclick="courseCheck()">Courses</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12" id="DashboardItem">
+				<div id="userModal" style="color: white;">
+					<button class="btn btn-info" id="AddUserBtn">Add User</button>
+					<button class="btn btn-info" id="RemoveUserBtn">Remove User</button>
+				</div>
+				<div id="courseModal">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--Add User Modal -->
+	<div class="modal fade" id="AddUserModal" role="dialog">
+	   <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	    <div class="modal-content">
+	        <div class="modal-header" style="padding:35px 50px;">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4><span class="glyphicon glyphicon-lock"></span> ADD USER</h4>
+	        </div>
+	        <div class="modal-body" style="padding:40px 50px;">
+	            <div class="form-group">
+	              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+	              <input type="text" class="form-control" id="userNameTxt" placeholder="Enter Username">
+	            </div>
+	            <div class="form-group">
+	              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+	              <input type="password" class="form-control" id="userPasswordTxt" placeholder="Enter Password">
+	            </div>	
+	              <button type="submit" class="btn btn-success btn-block" onclick="createUser()"><span class="glyphicon glyphicon-off"></span> ADD</button>
+	        </div>
+	    </div>
+		</div>
+	</div> 
+
+<!--Remove User Modal -->
+	<div class="modal fade" id="RemoveUserModal" role="dialog">
+    		<div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		    <div class="modal-content">
+		        <div class="modal-header" style="padding:35px 50px;">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4><span class="glyphicon glyphicon-lock"></span> REMOVE USER</h4>
+		        </div>
+		        <div class="modal-body" style="padding:40px 50px;">
+		            <div class="form-group">
+		              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Select  Username</label>
+		            </div>
+		            <div class="form-group">
+		              <select id="userList"></select>
+		            </div>
+		            <button type="submit" class="btn btn-success btn-block" onclick="removeDataBtnFun()"><span class="glyphicon glyphicon-off"></span> REMOVE</button>
+		        </div>
+		    </div>
+			</div>
+		</div> 	
+</body>
+</html>
